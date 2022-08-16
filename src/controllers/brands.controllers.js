@@ -1,7 +1,8 @@
 const brandsService = require('../services/brands.service');
+const mongoose = require('mongoose');
 
-const findAllBrandsController = (req, res) => {
-  const brands = brandsService.findAllBrandsService();
+const findAllBrandsController = async (req, res) => {
+  const brands = await brandsService.findAllBrandsService();
   if (brands.length == 0) {
     return res
       .status(404)
@@ -10,13 +11,13 @@ const findAllBrandsController = (req, res) => {
   res.send(brands);
 };
 
-const findByIdBrandsController = (req, res) => {
-  const paramsId = Number(req.params.id);
+const findByIdBrandsController = async (req, res) => {
+  const paramsId = req.params.id;
 
-  if (!paramsId) {
+  if (!mongoose.Types.ObjectId.isValid(paramsId)) {
     return res.status(400).send({ message: 'Id inválido!' });
   }
-  const selectBrand = brandsService.findByIdBrandsService(paramsId);
+  const selectBrand = await brandsService.findByIdBrandsService(paramsId);
   if (!selectBrand) {
     return res.status(404).send({ message: 'Paleta não encontrada!' });
   }
@@ -24,48 +25,48 @@ const findByIdBrandsController = (req, res) => {
   res.send(selectBrand);
 };
 
-const deleteBrandController = (req, res) => {
-  const idParam = Number(req.params.id);
-  if (!idParam) {
-    return res.status(400).send({ message: 'Id inválido' });
+const deleteBrandController = async (req, res) => {
+  const idParam = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(idParam)) {
+    return res.status(400).send({ message: 'Id inválido!' });
   }
-  brandsService.deleteBrandService(idParam);
+  await brandsService.deleteBrandService(idParam);
 
   res.send({ message: 'Brand sucess delete!.' });
 };
 
-const createBrandController = (req, res) => {
+const createBrandController = async (req, res) => {
   const brand = req.body;
 
   if (
     !brand ||
-    !brand.Brand ||
+    !brand.brand ||
     !brand.yearOfCreation ||
     !brand.localtionOfCreation
   ) {
     return res.status(400).send({ message: 'Envie todos os campos da Brand!' });
   }
-  const newBrand = brandsService.createBrandService(brand);
+  const newBrand = await brandsService.createBrandService(brand);
   res.status(201).send(newBrand);
 };
 
-const editBrandController = (req, res) => {
-  const idParam = Number(req.params.id);
-  if (!idParam) {
-    return res.status(400).send({ message: 'Id inválido' });
+const editBrandController = async (req, res) => {
+  const idParam = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(idParam)) {
+    return res.status(400).send({ message: 'Id inválido!' });
   }
 
   const brandEdit = req.body;
 
   if (
     !brandEdit ||
-    !brandEdit.Brand ||
+    !brandEdit.brand ||
     !brandEdit.yearOfCreation ||
     !brandEdit.localtionOfCreation
   ) {
     return res.status(400).send({ message: 'Envie todos os campos da Brand!' });
   }
-  const editedBrand = brandsService.editBrandService(idParam, brandEdit);
+  const editedBrand = await brandsService.editBrandService(idParam, brandEdit);
   res.send(editedBrand);
 };
 

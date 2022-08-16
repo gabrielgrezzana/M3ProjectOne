@@ -1,0 +1,32 @@
+[
+  {
+    "Brand": "Nike",
+    "yearOfCreation": 1964,
+    "localtionOfCreation": "Oregon EUA"
+  },
+  {
+    "Brand": "Adidas",
+    "yearOfCreation": 1949,
+    "localtionOfCreation": "Herzogenaurach Alemanha"
+  },
+  {
+    "Brand": "Razer",
+    "yearOfCreation": 2005,
+    "localtionOfCreation": "San Diego California EUA"
+  },
+  {
+    "Brand": "Asus",
+    "yearOfCreation": 1989,
+    "localtionOfCreation": "Taipé Taiwan"
+  },
+  {
+    "Brand": "Amazon",
+    "yearOfCreation": 1994,
+    "localtionOfCreation": "Washington EUA"
+  },
+  {
+    "Brand": "Apple",
+    "yearOfCreation": 1976,
+    "localtionOfCreation": "Los Altos California EUA"
+  }
+]
